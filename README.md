@@ -1,192 +1,230 @@
-I looked at your repository **[Billing on GitHub](https://github.com/anuj2731997/Billing)** and your **package.json dependencies** (which show it’s a **Next.js + Clerk + Razorpay project**) ([GitHub][1]) — but your repo currently *doesn’t show a detailed README*. So I’ll generate a complete, professional README tailored to your project architecture.
+This is already strong. I’ll refine it slightly to make it:
 
-Here’s a **ready-to-use README.md** you can paste into your repo:
+* Cleaner formatting
+* More professional tone
+* Better structured for GitHub recruiters
+* Slightly more technical where it matters
+* Without unnecessary repetition
+
+You can replace your README with this polished final version 👇
 
 ---
 
-```markdown
 # Billing — Premium Access with Clerk & Razorpay
 
-A full-stack premium subscription demo built using **Next.js (App Router)**, **Clerk** for authentication, and **Razorpay** for secure payment handling. Designed as a real-world SaaS-style system with webhook verification and premium access control.
+A full-stack premium subscription system built using **Next.js (App Router)**, **Clerk authentication**, **Razorpay payments**, and **Prisma + Neon Postgres**.
+
+This project demonstrates a production-style SaaS architecture with secure webhook verification, database-backed order persistence, and dynamic premium access control.
 
 ---
 
 ## 🧠 Features
 
-✨ **Secure Authentication**  
-User login and session management powered by [Clerk](https://clerk.com/).
+✨ **Secure Authentication**
+User login and session management powered by Clerk.
 
-💳 **Razorpay Payment Integration**  
-Supports UPI, card and netbanking payments via Razorpay with server-side order creation.
+💳 **Razorpay Payment Integration**
+Supports UPI, cards, and netbanking with server-side order creation.
 
-🔐 **Webhook Verification**  
-Server-side verification of payments using Razorpay webhooks for security and integrity.
+🔐 **Webhook Verification**
+Secure server-side HMAC signature verification for Razorpay events.
 
-⚙️ **Premium Access Control**  
-Clerk public metadata updates on successful payment allow unlocking premium features.
+⚙️ **Premium Access Control**
+Clerk public metadata is updated after verified payments to unlock premium features.
 
-📊 **Dashboard with Orders and Profile**  
-Shows latest orders, status, and premium features based on user access.
+🗄 **Database Integration (Prisma + Neon Postgres)**
+Stores order records, payment status, and user mapping.
 
----
-
-## 🧱 Architecture
-
-```
-
-Next.js (App Router)
-├─ pages/api
-│   ├─ razorpay.ts      – Creates Razorpay orders
-│   ├─ webhook.ts       – Handles Razorpay webhook verification
-│   └─ get-amount.ts    – Returns payment amount
-├─ components
-│   └─ PayButton.tsx    – Razorpay UI + handler
-├─ dashboard
-│   └─ DashboardClient.tsx – Shows user info & order status
-├─ upgrade
-│   └─ page.tsx         – Premium upgrade screen
-├─ about
-│   └─ page.tsx         – Project overview
-└─ utils
-└─ razorpay.ts      – Razorpay client logic
-
-````
+📊 **Dashboard System**
+Displays user profile, latest order details, and premium status.
 
 ---
 
 ## 📦 Tech Stack
 
-| Layer                | Technology                     |
-|----------------------|-------------------------------|
-| Frontend Framework   | Next.js (App Router)           |
-| Authentication       | Clerk                          |
-| Payments             | Razorpay (UPI, Cards)          |
-| Backend SDK         | Razorpay Node SDK, Svix (optional) |
-| Database           | Prisma / MongoDB (optional)     |
-| UI                  | Tailwind CSS + shadcn UI       |
+| Layer          | Technology             |
+| -------------- | ---------------------- |
+| Runtime        | **Bun**                |
+| Frontend       | Next.js (App Router)   |
+| Authentication | Clerk                  |
+| Payments       | Razorpay (UPI + Cards) |
+| Database       | Prisma + Neon Postgres |
+| Backend        | Razorpay Node SDK      |
+| Styling        | Tailwind CSS           |
 
 ---
 
-## ⚙️ Setup and Installation
+# ⚙️ Setup & Installation (Using Bun)
 
-### 1. Clone the repository
+## 1️⃣ Clone the Repository
 
 ```bash
 git clone https://github.com/anuj2731997/Billing.git
 cd Billing
-````
-
-### 2. Install dependencies
-
-```bash
-npm install
-# or
-yarn
 ```
 
-### 3. Add environment variables
+---
 
-Create `.env` in the root:
+## 2️⃣ Install Dependencies
+
+```bash
+bun install
+```
+
+---
+
+## 3️⃣ Configure Environment Variables
+
+Create a `.env` file in the root directory and copy values from `sample.env`.
 
 ```env
+# Razorpay (Test Mode)
+NEXT_PUBLIC_RAZORPAY_KEY_ID="your_razorpay_key_id"
+RAZORPAY_KEY_SECRET="your_razorpay_secret"
+RAZORPAY_WEBHOOK_SECRET="your_webhook_secret"
+
 # Clerk
-CLERK_SECRET_KEY=
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="your_clerk_publishable_key"
+CLERK_SECRET_KEY="your_clerk_secret_key"
+CLERK_WEBHOOK_SECRET="your_clerk_webhook_secret"
 
-# Razorpay
-RAZORPAY_KEY_ID=
-NEXT_PUBLIC_RAZORPAY_KEY_ID=
-RAZORPAY_SECRET=
-RAZORPAY_WEBHOOK_SECRET=
+# Database
+DATABASE_URL="your_neon_postgres_connection_string"
 
-# Next
-NEXTAUTH_URL=http://localhost:3000
+# App URL
+#NEXT_PUBLIC_DEVELOPMENT_URL="https://your-ngrok-url"
+
+
+NEXT_PUBLIC_BASE_URL="http://localhost:3000"
+
 ```
 
-### 4. Start development
+---
+
+# 🗄 Prisma Setup
+
+From the project root:
 
 ```bash
-npm run dev
+bun --bun run prisma generate
+bun --bun run prisma migrate deploy
 ```
 
-Visit: [http://localhost:3000](http://localhost:3000)
+For local development:
 
----
-
-## 🚀 Razorpay Integration
-
-### Create Order API
-
-Server-side creates Razorpay orders:
-
-```ts
-const order = await razorpay.orders.create({
-  amount: 49900,
-  currency: "INR",
-  notes: { userId: user.id },
-});
-```
-
-### Webhook Verification
-
-Webhook endpoint verifies signatures and updates Clerk metadata:
-
-```ts
-import { clerkClient } from "@clerk/nextjs/server";
-await (await clerkClient()).users.updateUser(userId, { publicMetadata: { premium: true } });
+```bash
+bun --bun run prisma migrate dev
 ```
 
 ---
 
-## 🧩 UI & Client Integration
+# 🚀 Run Development Server
 
-### Payment Button
-
-Fetches order and opens Razorpay checkout:
-
-```tsx
-<Razorpay options={{ key, order_id, amount, currency: "INR" }} />
+```bash
+bun run dev
 ```
 
-### Dashboard
+For webhook testing locally, expose your server using:
 
-Shows:
+* ngrok
+* zrok
 
-* Profile & email
-* Latest order status
-* Premium features
-* Upgrade CTA
+Then use:
 
----
-
-## 🧪 Testing Payments
-
-In Razorpay **test mode**:
-
-| UPI Test ID        | Outcome           |
-| ------------------ | ----------------- |
-| `success@razorpay` | Simulates success |
-| `failure@razorpay` | Simulates fail    |
-
-Make sure your webhook is set up in **Test Mode** with corresponding secret.
+```
+https://your-ngrok-url
+```
 
 ---
 
-## 🧠 Learning Outcomes
+# 💳 Razorpay Webhook Setup
+
+## 1️⃣ Create Webhook in Razorpay Dashboard
+
+Navigate to:
+
+Razorpay Dashboard → Settings → Webhooks
+
+Add endpoint:
+
+```
+https://your-domain.com/api/webhook/razorpay
+```
+
+For local testing:
+
+```
+https://your-ngrok-url/api/webhook/razorpay
+```
+
+Select events:
+
+* payment.captured
+* payment.failed
+
+Ensure you use the correct `RAZORPAY_WEBHOOK_SECRET` from Test Mode.
+
+---
+
+# 🔐 Clerk Webhook Setup
+
+Navigate to:
+
+Clerk Dashboard → Webhooks
+
+Add endpoint:
+
+```
+https://your-domain.com/api/webhook/clerk
+```
+
+For local testing:
+
+```
+https://your-ngrok-url/api/webhook/clerk
+```
+
+Set:
+
+```
+CLERK_WEBHOOK_SECRET
+```
+
+Clerk webhooks can be used for:
+
+* User created
+* User deleted
+* Email updated
+
+---
+
+# 🧪 Testing Payments (Razorpay Test Mode)
+
+Ensure:
+
+* Razorpay is in **Test Mode**
+* Webhook is configured in **Test Mode**
+* Correct webhook secret is used
+---
+
+---
+
+# 🎓 Learning Outcomes
 
 This project demonstrates:
 
-✔ Modern **Next.js App Router architecture**
-✔ Secure **authentication with Clerk**
-✔ Real-world **payment integration**
-✔ Server-side verification & metadata updates
+* Production-grade Next.js App Router architecture
+* Secure authentication using Clerk
+* Payment gateway integration with Razorpay
+* Webhook signature validation
+* Metadata-driven feature access
+* Database-backed order management
 
 ---
----
 
-## 🧑‍💻 Author
+# 🧑‍💻 Author
 
-**Anuj** — Computer Science Engineering student
-Showcasing full-stack skills & secure systems.
+**Anuj**
+Computer Science Engineering Student
+Focused on building secure, scalable, full-stack SaaS systems.
 
----

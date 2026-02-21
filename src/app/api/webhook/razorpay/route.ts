@@ -69,6 +69,22 @@ export async function POST(req: Request) {
 
   }
 
+  if(event.event === "payment.failed") {
+    const payment = event.payload.payment.entity;
+    const order = await prisma.order.findUnique({
+      where: { razorpayOrderId: payment.order_id },
+    });
+
+    if (!order) return NextResponse.json({ error: "Order not found" });
+
+    await prisma.order.update({
+      where: { id: order.id },
+      data: { status: "FAILED" },
+    });
+  }
+
+  
+
   return NextResponse.json({ received: true });
 }
 
