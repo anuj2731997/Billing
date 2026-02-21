@@ -41,7 +41,7 @@ Displays user profile, latest order details, and premium status.
 | Payments       | Razorpay (UPI + Cards) |
 | Database       | Prisma + Neon Postgres |
 | Backend        | Razorpay Node SDK      |
-| Styling        | Tailwind CSS           |
+| Styling        | Tailwind CSS + Shadcn  |        |
 
 ---
 
