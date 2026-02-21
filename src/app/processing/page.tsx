@@ -16,23 +16,23 @@ export default function ProcessingPage() {
     if (!orderId) return;
 
     const interval = setInterval(async () => {
-      const res = await fetch(`/api/order-status?order=${orderId}`,{
-        method:"GET",
+      const res = await fetch(`/api/order-status?order=${orderId}`, {
+        method: "GET",
       });
 
-      if(res.status === 401) {
+      if (res.status === 401) {
         clearInterval(interval);
         router.push("/sign-in");
         return;
       }
-      
-      
-        if(res.status !== 200) {
-          clearInterval(interval);
-          setStatus("FAILED");
-          return;
-        }
-      
+
+
+      if (res.status !== 200) {
+        clearInterval(interval);
+        setStatus("FAILED");
+        return;
+      }
+
       const data = await res.json();
       console.log("Order data:", data);
 

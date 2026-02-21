@@ -23,7 +23,6 @@ export default function UserPremiumCard({
   return (
     <div className="bg-white border rounded-2xl shadow-sm p-8 w-full max-w-md mx-auto">
 
-      {/* Profile Section */}
       <div className="flex items-center gap-4">
         {image ? (
           <Image
@@ -45,10 +44,9 @@ export default function UserPremiumCard({
         </div>
       </div>
 
-      {/* Divider */}
       <div className="my-6 border-t" />
 
-      {/* Premium Section */}
+    
       {premium ? (
         <div className="space-y-4">
 
@@ -86,7 +84,7 @@ export default function UserPremiumCard({
             Upgrade to Premium to unlock advanced features and priority access.
           </div>
 
-          <button className="w-full bg-black text-white py-2 rounded-md hover:opacity-90 transition" onClick={()=>
+          <button className="w-full bg-black text-white py-2 rounded-md hover:opacity-90 transition hover:cursor-pointer" onClick={()=>
             router.push("/upgrade")
           }>
             Upgrade to Premium

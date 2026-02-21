@@ -8,16 +8,12 @@ export default function Navbar() {
     <header className="w-full border-b bg-white">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         
-        {/* Logo */}
-        <Link href="/" className="text-xl font-semibold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent hover:opacity-80 transition-opacity duration-200">
+        <Link href="/" className="text-xl font-semibold tracking-tight bg-linear-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent hover:opacity-80 transition-opacity duration-200">
           Rayzorpay
         </Link>
 
-        {/* Navigation Links */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
-          {/* <Link href="/dashboard" className="hover:text-black transition">
-            Dashboard
-          </Link> */}
+         
           <Link href="/profile" className="hover:text-black transition">
             Profile
           </Link>
@@ -26,7 +22,6 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        {/* Auth Section */}
         <div className="flex items-center gap-4">
           
           <SignedOut>

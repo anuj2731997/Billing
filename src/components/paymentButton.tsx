@@ -6,7 +6,6 @@ export default function PayButton() {
   const [amount, setAmount] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
 
-  // ✅ Fetch amount properly
   useEffect(() => {
     const fetchAmount = async () => {
       try {

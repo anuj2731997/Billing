@@ -40,7 +40,6 @@ useEffect(()=>{
   return (
     <div className="min-h-screen bg-gray-50">
 
-      {/* Header */}
       <div className="bg-white border-b">
         <div className="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center">
           <div>
@@ -64,10 +63,8 @@ useEffect(()=>{
         </div>
       </div>
 
-      {/* Main Grid */}
       <div className="max-w-6xl mx-auto p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
 
-        {/* Profile Card */}
         <div className="bg-white p-6 rounded-2xl shadow-sm border">
           <h2 className="text-lg font-semibold mb-4">Profile Information</h2>
 
@@ -79,7 +76,6 @@ useEffect(()=>{
           </div>
         </div>
 
-        {/* Latest Order */}
         <div className="bg-white p-6 rounded-2xl shadow-sm border">
           <h2 className="text-lg font-semibold mb-4">Latest Transaction</h2>
 
@@ -117,7 +113,6 @@ useEffect(()=>{
           )}
         </div>
 
-        {/* Premium Section */}
         <div className="bg-white p-6 rounded-2xl shadow-sm border">
           <h2 className="text-lg font-semibold mb-4">
             {isPremium ? "Premium Benefits" : "Upgrade to Premium"}
@@ -156,7 +151,6 @@ useEffect(()=>{
         </div>
       </div>
 
-      {/* Optional Premium Highlight Banner */}
       {!isPremium && (
         <div className="max-w-6xl mx-auto px-6 pb-10">
           <div className="bg-black text-white rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6">

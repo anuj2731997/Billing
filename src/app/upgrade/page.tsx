@@ -29,14 +29,14 @@ export default async function UpgradePage() {
   return (
     <div className="min-h-screen bg-gray-50">
 
-      {/* Header */}
+     
       <div className="max-w-6xl mx-auto px-6 py-12">
         <Link href="/" className="text-sm text-gray-500 hover:text-black">
          <MoveLeft className="inline-block mr-2"/> Back to Dashboard
         </Link>
       </div>
 
-      {/* Main Section */}
+      
       <div className="max-w-4xl mx-auto px-6 pb-20">
 
         <div className="bg-white rounded-2xl border shadow-sm p-12 text-center">
@@ -50,13 +50,13 @@ export default async function UpgradePage() {
             and priority support with our lifetime premium plan.
           </p>
 
-          {/* Price */}
+     
           <div className="mt-10">
             <span className="text-6xl font-bold">₹{amount}</span>
             <span className="text-gray-500 ml-2">/ lifetime</span>
           </div>
 
-          {/* Features */}
+          
           <div className="mt-10 text-left max-w-md mx-auto">
             <ul className="space-y-3 text-gray-600 text-sm">
               <li>✔ Unlimited premium access</li>
@@ -67,7 +67,7 @@ export default async function UpgradePage() {
             </ul>
           </div>
 
-          {/* Action Section */}
+    
           <div className="mt-12">
 
             {isPremium ? (
